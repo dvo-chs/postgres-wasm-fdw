@@ -58,8 +58,9 @@ impl Guest for ExampleFdw {
 
     // get sheet id from foreign table options and make the request URL
     let opts = ctx.get_options(OptionsType::Table);
+    let spreadsheet_id = opts.require("spreadsheet_id")?;
     let sheet_id = opts.require("sheet_id")?;
-    let url = format!("{}/{}/gviz/tq?tqx=out:json", this.base_url, sheet_id);
+    let url = format!("{}/{}/gviz/tq?tqx=out:json&gid={}", this.base_url, spreadsheet_id, sheet_id);
 
     // make up request headers
     let headers: Vec<(String, String)> = vec![
